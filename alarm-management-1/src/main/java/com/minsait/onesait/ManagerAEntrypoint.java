@@ -26,7 +26,7 @@ public class ManagerAEntrypoint {
 		} catch (final Exception e) {
 			result = "Failed to handle alarm with id " + id + "\n "+e.getLocalizedMessage();
 		}
-		return result;
+		return "{\"status\":\""+result+"\"}";
 	}
 
 	private OkHttpClient clientHttp() {
