@@ -6,8 +6,8 @@ import okhttp3.Response;
 
 public class ManagerAEntrypoint {
 
-	private static final String API_KEY = "49832a9c2d7645caa0ef497706edef34";
-	private static final String API_ENDPOINT ="https://onesait-telco-poc.onesaitplatform.com/api-manager/server/api/v1/alarm-fire/complete-status/";
+	private static final String API_KEY = "526a85610da04ecd94b1e2b00d0116a7";
+	private static final String API_ENDPOINT ="https://development.onesaitplatform.com/api-manager/server/api/v1/telco-proxy/proxy-request/";
 
 	public String handleRequest(String id) {
 		String result = "Alarm with id " + id + " triggered correctly. ";
