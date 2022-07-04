@@ -13,7 +13,7 @@ public class ManagerAEntrypoint {
 		String result = "Alarm with id " + id + " triggered correctly. ";
 		try {
 			Thread.sleep(6500);
-			final Request request = new Request.Builder().url(API_ENDPOINT + id).get()
+			final Request request = new Request.Builder().url(API_ENDPOINT + "?id=" +id).get()
 					.build();
 			final Response response = clientHttp().newCall(request).execute();
 			return result + response.body().string();
