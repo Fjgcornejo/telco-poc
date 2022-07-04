@@ -1,37 +1,39 @@
 package com.minsait.onesait;
 
-import java.util.Random;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class ManagerAEntrypoint {
 
-	public String handleRequest(String input) {
-		final Integer total = input == null || input.isEmpty() ? 1000 : Integer.valueOf(input);
-		final int drop = 17;
+	private static final String API_KEY = "49832a9c2d7645caa0ef497706edef34";
+	private static final String API_ENDPOINT ="https://onesait-telco-poc.onesaitplatform.com/api-manager/server/api/v1/alarm-fire/complete-status/";
 
-		boolean found = false;
-		int iterations = 0;
-		boolean lucky = false;
+	public String handleRequest(String id) {
+		String result = "Alarm with id " + id + " triggered correctly. ";
+		try {
+			Thread.sleep(6500);
+			final Request request = new Request.Builder().url(API_ENDPOINT + id).get()
+					.build();
+			final Response response = clientHttp().newCall(request).execute();
+			return result + response.body().string();
+		} catch (final Exception e) {
+			result = "Failed to handle alarm with id " + id;
+		}
+		return result;
+	}
 
-		while (!found) {
-			final Integer guessed = new Random().nextInt(total);
-			if (guessed == drop) {
-				found = true;
-			}
-			if (iterations >= total * 100) {
-				found = true;
-			}
-			iterations++;
-		}
-		if (iterations < 190) {
-			lucky = true;
-		}
+	private OkHttpClient clientHttp() {
+		final OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+		httpClient.addInterceptor(chain -> {
+			final Request request = chain.request();
+			Request newRequest;
 
-		System.out.println("Mount drop after " + iterations + " tries.");
-		String output = "Mount drop after " + iterations + " tries, with special number being: " + drop;
-		if (lucky) {
-			output = output + " ...and you are lucky!!!";
-		}
-		return output;
+			newRequest = request.newBuilder().addHeader("X-OP-APIKey", API_KEY).addHeader("Accept", "application/json")
+					.build();
+			return chain.proceed(newRequest);
+		});
+		return httpClient.build();
 	}
 
 }
