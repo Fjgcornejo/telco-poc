@@ -22,7 +22,7 @@ public class ManagerAEntrypoint {
 			final Request request = new Request.Builder().url(API_ENDPOINT + "?id=" +id).get()
 					.build();
 			final Response response = clientHttp().newCall(request).execute();
-			return result + response.body().string();
+			return "{\"status\":\""+result + response.body().string()+"\"}";
 		} catch (final Exception e) {
 			result = "Failed to handle alarm with id " + id + "\n "+e.getLocalizedMessage();
 		}
