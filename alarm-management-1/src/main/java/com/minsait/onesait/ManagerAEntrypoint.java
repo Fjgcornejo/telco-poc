@@ -18,7 +18,7 @@ public class ManagerAEntrypoint {
 			final Response response = clientHttp().newCall(request).execute();
 			return result + response.body().string();
 		} catch (final Exception e) {
-			result = "Failed to handle alarm with id " + id;
+			result = "Failed to handle alarm with id " + id + "\n "+e.getLocalizedMessage();
 		}
 		return result;
 	}
