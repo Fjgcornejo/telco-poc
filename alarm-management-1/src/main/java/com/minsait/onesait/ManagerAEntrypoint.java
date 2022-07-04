@@ -1,5 +1,7 @@
 package com.minsait.onesait;
 
+import java.util.Random;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -12,7 +14,11 @@ public class ManagerAEntrypoint {
 	public String handleRequest(String id) {
 		String result = "Alarm with id " + id + " triggered correctly. ";
 		try {
-			Thread.sleep(6500);
+			final long x = 1000L;
+			final long y = 7000L;
+			final Random r = new Random();
+			final long sleep = x+(long)(r.nextDouble()*(y-x));
+			Thread.sleep(sleep);
 			final Request request = new Request.Builder().url(API_ENDPOINT + "?id=" +id).get()
 					.build();
 			final Response response = clientHttp().newCall(request).execute();
