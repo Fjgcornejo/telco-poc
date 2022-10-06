@@ -8,6 +8,7 @@ import okhttp3.Response;
 
 public class ManagerAEntrypoint {
 
+  	//SOME CHANGES
 	private static final String API_KEY = "526a85610da04ecd94b1e2b00d0116a7";
 	private static final String API_ENDPOINT ="https://development.onesaitplatform.com/api-manager/server/api/v1/telco-proxy/proxy-request/";
 
